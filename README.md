@@ -1,6 +1,6 @@
 # NetFault_LLM
 
-NetFault_LLM is a tool designed to analyze broadband network data to identify potential faults for customers based on predefined fault conditions. The analysis evaluates various network performance metrics and categorizes the severity of any issues found, providing a fault summary and resolution steps using the LLaMA model.
+NetFault_LLM analyzes broadband network data to identify potential faults and summarize issues.
 
 ## Table of Contents
 
@@ -15,14 +15,16 @@ NetFault_LLM is a tool designed to analyze broadband network data to identify po
 
 ## Overview
 
-This project processes network performance data for customers, analyzing metrics such as latency, jitter, packet loss, channel quality, and the number of distant devices. It identifies issues based on specified thresholds, categorizes the severity of these issues, and generates a response with fault summaries and resolution steps.
+This project processes network performance data for customers, analyzing metrics such as latency,
+jitter, packet loss, channel quality, and the number of distant devices. It identifies issues based
+on specified thresholds, categorizes their severity, and generates a text summary of findings.
 
 ## Key Features
 
 - **Data Analysis:** Processes network performance data to identify issues.
 - **Fault Detection:** Flags potential network faults based on predefined thresholds.
 - **Severity Categorization:** Classifies the severity of issues as Normal, Moderate, or Critical.
-- **Response Generation:** Uses the LLaMA model to provide a summary and resolution steps for detected faults.
+- **Response Generation:** Produces a plain‑text summary for detected faults.
 - **JSON Output:** Saves the analysis results in a structured JSON file for further use.
 
 ## Getting Started
@@ -32,8 +34,7 @@ This project processes network performance data for customers, analyzing metrics
 Ensure you have the following installed:
 
 - Python 3.x
-- `ollama` tool for running the LLaMA model
-- Necessary Python packages: `subprocess`, `json`
+- `pip` package manager
 
 ### Installation
 
@@ -41,3 +42,36 @@ Ensure you have the following installed:
 
    ```bash
    git clone https://github.com/noorcs39/NetFault_LLM.git
+   cd NetFault_LLM
+   ```
+
+2. Install the required dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Usage
+
+Analyze the sample dataset and write results to `responses.json`:
+
+```bash
+python main.py --input input.csv --output responses.json
+```
+
+## Output
+
+Running the script prints a human‑readable summary and writes a JSON file containing the detailed
+results and summary text.
+
+## Dependencies
+
+See [`requirements.txt`](requirements.txt) for the complete list of Python dependencies.
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.

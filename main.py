@@ -1,28 +1,23 @@
-from transformers import pipeline, AutoTokenizer
-import torch
-torch.manual_seed(0)
-model = "tiiuae/falcon-7b-instruct"
-
-tokenizer = AutoTokenizer.from_pretrained(model)
-pipe = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    torch_dtype=torch.bfloat16,
-    device_map="auto",
-)
-
-torch.manual_seed(0)
-prompt = """Classify the text into neutral, negative or positive. 
-Text: This movie is definitely one of my favorite movies of its kind. The interaction between respectable and morally strong characters is an ode to chivalry and the honor code amongst thieves and policemen.
-Sentiment:
-"""
-
-sequences = pipe(
-    prompt,
-    max_new_tokens=10,
-)
+import argparse
+import json
+from network_analysis import load_data, analyze, generate_response
 
 
-for seq in sequences:
-    print(f"Result: {seq['generated_text']}")
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Analyze network performance data")
+    parser.add_argument("--input", default="input.csv", help="CSV file with network metrics")
+    parser.add_argument("--output", default="responses.json", help="File to write JSON results")
+    args = parser.parse_args()
+
+    df = load_data(args.input)
+    results = analyze(df)
+    summary = generate_response(results)
+
+    with open(args.output, "w") as fh:
+        json.dump({"results": results, "summary": summary}, fh, indent=2)
+
+    print(summary)
+
+
+if __name__ == "__main__":
+    main()
